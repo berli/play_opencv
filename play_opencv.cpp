@@ -17,11 +17,14 @@ int main(int argc,char *argv[])
     //cv::rectangle(img, cvPoint(250,250), cvPoint(100,100), cvScalar(255,0,0),2);
 	//Rect(int a,int b,int c,int d)a,b为矩形的左上角坐标,c,d为矩形的长和宽
     cv::rectangle(img, Rect(100,300,width/2, height/2), cvScalar(98,245,31),2);
-	for(int i = 320; i < 300+height/2; i+=20)
+
+	int m = 0;
+	for(int i = 310; i < 300+height/2; i+=10)
 	{
+		int cnt = (300+height/2)/10;
 	Point a = Point(100,i);
 	Point b = Point(100+width/2, i);
-	cv::line(img,a, b, Scalar(0,0,255));
+	cv::line(img,a, b, Scalar(0,0,255), 0.1*(m++));
 
 	}
     cv::circle(img,cvPoint(100,100),50,cvScalar(0,255,0),2);
