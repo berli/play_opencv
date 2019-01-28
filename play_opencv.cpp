@@ -27,6 +27,20 @@ int main(int argc,char *argv[])
 	cv::line(img,a, b, Scalar(0,0,255), 0.1*(m++));
 
 	}
+	//设置绘制文本的相关参数
+	std::string text = "Hello World!";
+	int font_face = cv::FONT_HERSHEY_COMPLEX; 
+	double font_scale = 2;
+	int thickness = 2;
+	int baseline;
+	//获取文本框的长宽
+	cv::Size text_size = cv::getTextSize(text, font_face, font_scale, thickness, &baseline);
+							 
+	//将文本框居中绘制
+	cv::Point origin; 
+	origin.x = img.cols / 2 - text_size.width / 2;
+    origin.y = img.rows / 2 + text_size.height / 2;
+	cv::putText(img, text, origin, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 8, 0);
     cv::circle(img,cvPoint(100,100),50,cvScalar(0,255,0),2);
  
     cv::namedWindow("test");
