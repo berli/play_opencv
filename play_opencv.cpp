@@ -1,36 +1,18 @@
-#include <cv.hpp>
+#include <opencv2/opencv.hpp>
 #include <math.h>
 #include <string.h>
-#include <opencv/cv.h>
+//#include <opencv/cv.h>
 #include <stdio.h>
 
 using namespace std;
 using namespace cv;
 
-int main(int argc,char *argv[])
+void frameText(cv::Mat&img,const string&text)
 {
-    //cv::Mat img = cv::Mat(240,320,CV_8UC3,cv::Scalar(0,0,255));
-    cv::Mat img = imread("201704051756.jpg");
-
-	int width = img.cols;
-	int height = img.rows;
-    //cv::rectangle(img, cvPoint(250,250), cvPoint(100,100), cvScalar(255,0,0),2);
-	//Rect(int a,int b,int c,int d)a,b为矩形的左上角坐标,c,d为矩形的长和宽
-    rectangle(img, Rect(100,300,width/2, height/2), cvScalar(98,245,31),2);
-
-	int m = 0;
-	for(int i = 310; i < 300+height/2; i+=10)
-	{
-		int cnt = (300+height/2)/10;
-	Point a = Point(100,i);
-	Point b = Point(100+width/2, i);
-	cv::line(img,a, b, Scalar(0,0,255), 0.1*(m++));
-
-	}
 	//设置绘制文本的相关参数
-	std::string text = "Hello World!";
+	//std::string text = "Hello World!";
 	int font_face = cv::FONT_HERSHEY_COMPLEX; 
-	double font_scale = 2;
+	double font_scale = 1;
 	int thickness = 2;
 	int baseline;
 	//获取文本框的长宽
@@ -54,19 +36,66 @@ int main(int argc,char *argv[])
 	 ); 
 	*/
 	cv::putText(img, text, origin, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 8, 0);
-    cv::circle(img,cvPoint(100,100),50,cvScalar(0,255,0),2);
  
 	Rect select;//声明矩形
 	select.x = origin.x;//左上角坐标
-	select.y = origin.y - text_size.height;
+	select.y = origin.y - text_size.height - 5;
 	select.width = text_size.width;
-	select.height = text_size.height;
+	select.height = text_size.height+12;
 	 
 	rectangle(img,select,Scalar(0,0,255),3,8,0);//用矩形画矩形窗
+}
+
+int main(int argc,char *argv[])
+{
+    //cv::Mat img = cv::Mat(240,320,CV_8UC3,cv::Scalar(0,0,255));
+    cv::Mat img = imread("201704051756.jpg");
+
+	int width = img.cols;
+	int height = img.rows;
+    //cv::rectangle(img, cvPoint(250,250), cvPoint(100,100), cv::Scalar(255,0,0),2);
+	//Rect(int a,int b,int c,int d)a,b为矩形的左上角坐标,c,d为矩形的长和宽
+    rectangle(img, Rect(100,300,width/2, height/2), cv::Scalar(98,245,31),2);
+
+	int m = 0;
+	for(int i = 310; i < 300+height/2; i+=10)
+	{
+		int cnt = (300+height/2)/10;
+	    Point a = Point(100,i);
+	    Point b = Point(100+width/2, i);
+	//    cv::line(img,a, b, Scalar(0,0,255), 0.1*(m++));
+	}
+    cv::circle(img,cv::Point(100,100),50,cv::Scalar(0,255,0),2);
+
+	string text = "Hello World";
+	frameText(img, text);
     
 	cv::namedWindow("test");
     cv::imshow("test",img);
     cv::waitKey(0);
-    return 0;
+
+		cv::Mat src(768, 1024,CV_8UC3);
+	src.setTo(0);
+
+	std::vector<cv::Point > contour;
+	contour.reserve(6);
+	contour.push_back(cv::Point(389,253));
+	contour.push_back(cv::Point(0, 529));
+	contour.push_back(cv::Point(0, 768));
+	contour.push_back(cv::Point(1024, 768));
+	contour.push_back(cv::Point(1024, 643));
+	contour.push_back(cv::Point(671, 263));
+
+	std::vector<std::vector<cv::Point >> contours;
+	contours.push_back(contour);
+
+	//填充区域之前，首先采用polylines()函数，可以使填充的区域边缘更光滑
+	cv::polylines(src, contours, true, cv::Scalar(255, 255, 255), 2, cv::LINE_AA);//第2个参数可以采用contour或者contours，均可
+	cv::fillPoly(src, contours, cv::Scalar(255, 255, 255));//fillPoly函数的第二个参数是二维数组！！
+
+	cv::imshow("原图", src);
+	cv::waitKey(0);
+    
+	return 0;
 }
 
