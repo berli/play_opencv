@@ -35,6 +35,53 @@ float computeAngle(cv::Point pt0, cv::Point pt1)
 	return angle;
 }
 
+void frameText(cv::Mat&img, vector<string>&text)
+{
+	//设置绘制文本的相关参数
+	//std::string text = "Hello World!";
+	int font_face = cv::FONT_HERSHEY_COMPLEX; 
+	double font_scale = 1;
+	int thickness = 2;
+	int baseline;
+	//获取文本框的长宽
+	int y = 0;
+	cv::Point origin; 
+	for(auto&e:text)
+	{
+		cv::Size text_size = cv::getTextSize(e, font_face, font_scale, thickness, &baseline);
+								 
+		//将文本框居中绘制
+		origin.x = 0;
+		if( y == 0)
+			origin.y = text_size.height+10;
+	    origin.y += y;
+		y += origin.y;
+		cout<<"y:"<<y<<endl;
+		/*
+    	void cv::putText(  
+		 cv::Mat& img, // 待绘制的图像  
+		 const string& text, // 待绘制的文字  
+		 cv::Point origin, // 文本框的左下角  
+		 int fontFace, // 字体 (如cv::FONT_HERSHEY_PLAIN)  
+		 double fontScale, // 尺寸因子，值越大文字越大  
+		 cv::Scalar color, // 线条的颜色（RGB）  
+		 int thickness = 1, // 线条宽度  
+		 int lineType = 8, // 线型（4邻域或8邻域，默认8邻域）  
+		 bool bottomLeftOrigin = false // true='origin at lower left'  
+		 ); 
+		*/
+		cv::putText(img, e, origin, font_face, font_scale, cv::Scalar(0, 255, 255), thickness, 8, 0);
+ 
+		Rect select;//声明矩形
+		select.x = origin.x;//左上角坐标
+		select.y = origin.y - text_size.height - 5;
+		select.width = text_size.width;
+		select.height = text_size.height+12;
+		 
+		rectangle(img,select,Scalar(0,0,255),3,8,0);//用矩形画矩形窗
+	}
+}
+
 void frameText(cv::Mat&img,const string&text)
 {
 	//设置绘制文本的相关参数
@@ -98,7 +145,11 @@ int main(int argc,char *argv[])
     cv::circle(img,cv::Point(100,100),50,cv::Scalar(0,255,0),2);
 	
 	string text = "Hello World";
-	frameText(img, text);
+	//frameText(img, text);
+	vector<string>vecText;
+	vecText.push_back(text);
+	vecText.push_back(text);
+	frameText(img, vecText);
     
 	cv::namedWindow("test");
     cv::imshow("test",img);
