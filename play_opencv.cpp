@@ -7,6 +7,34 @@
 using namespace std;
 using namespace cv;
 
+#define  PI 3.1415926
+
+float computeAngle(cv::Point pt0, cv::Point pt1)
+{
+	int dx = pt1.x - pt0.x;
+	int dy = pt1.y - pt0.y;
+	if(dx == 0)
+	{
+		if(dy < 0)
+		{
+			return CV_PI / 2.0;
+		}
+		else if(dy > 0)
+		{
+			return -CV_PI / 2.0;
+		}
+		else
+		{
+			return 0.0;
+		}
+			
+	}
+	
+	float a =  atanf((float)dy / dx);
+	float angle = a*180/PI ;
+	return angle;
+}
+
 void frameText(cv::Mat&img,const string&text)
 {
 	//设置绘制文本的相关参数
@@ -22,6 +50,8 @@ void frameText(cv::Mat&img,const string&text)
 	cv::Point origin; 
 	origin.x = img.cols / 2 - text_size.width / 2;
     origin.y = img.rows / 2 + text_size.height / 2;
+	origin.x = 0;
+    origin.y = text_size.height+10;
 	/*
     void cv::putText(  
 	 cv::Mat& img, // 待绘制的图像  
@@ -66,7 +96,7 @@ int main(int argc,char *argv[])
 	//    cv::line(img,a, b, Scalar(0,0,255), 0.1*(m++));
 	}
     cv::circle(img,cv::Point(100,100),50,cv::Scalar(0,255,0),2);
-
+	
 	string text = "Hello World";
 	frameText(img, text);
     
@@ -85,6 +115,8 @@ int main(int argc,char *argv[])
 	contour.push_back(cv::Point(1024, 768));
 	contour.push_back(cv::Point(1024, 643));
 	contour.push_back(cv::Point(671, 263));
+
+	cout<<computeAngle(cv::Point(100,100), cv::Point(0, 0))<<endl;
 
 	std::vector<std::vector<cv::Point >> contours;
 	contours.push_back(contour);
