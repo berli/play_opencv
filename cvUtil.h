@@ -36,7 +36,8 @@ public:
 
 	void frameText(cv::Mat&img, vector<string>&text, const bool&filled = true, const bool&transparent = true, const float&alpha = 0.3);
 
-	void frameTextCh(cv::Mat&img, vector<string>&text, const bool&filled = true, const bool&transparent = true, const float&alpha = 0.3);
+	void frameTextCh(cv::Mat&img, vector<string>&text, const int&ix=0, const int&iy =0, const bool&filled = true, const bool&transparent = true, const float&alpha = 0.3);
+
 
 	void frameText(cv::Mat&img,const string&text);
 

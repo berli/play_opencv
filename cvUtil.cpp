@@ -142,7 +142,7 @@ void cvUtil::frameText(cv::Mat&img, vector<string>&text, const bool&filled, cons
 	}
 }
 
-void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const bool&filled, const bool&transparent, const float&alpha)
+void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const int&ix, const int&iy, const bool&filled, const bool&transparent, const float&alpha)
 {
 	//设置绘制文本的相关参数
 	//std::string text = "Hello World!";
@@ -151,6 +151,8 @@ void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const bool&filled, co
 	//获取文本框的长宽
 	int y = 0;
 	cv::Point origin; 
+	origin.x = 0;
+	origin.y = 0;
 
 	Ptr<freetype::FreeType2> ft2;
 	ft2 = freetype::createFreeType2();
@@ -181,10 +183,9 @@ void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const bool&filled, co
 		cout<<"cv::Size width:"<<text_size.width<<endl;
 								 
 		//将文本框居中绘制
-		origin.x = 0;
 		if( y == 0)
 		{
-			origin.y = text_size.height+10;
+			origin.y += text_size.height+10;
 			y += origin.y;
 		}
 		else
