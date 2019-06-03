@@ -46,6 +46,5 @@ include_directories("${PROJECT_BINARY_DIR}")
 # 并将名称保存到 DIR_SRCS 变量
 aux_source_directory(. DIR_SRCS)
 add_executable(nsfw ${DIR_SRCS} )
-#target_link_libraries (nsfw  ${OpenCV_LIBS} ${Caffe_LIBRARIES})
 target_link_libraries (nsfw  ${OpenCV_LIBS} )
 
