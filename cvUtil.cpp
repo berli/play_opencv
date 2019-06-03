@@ -10,7 +10,7 @@ using namespace std;
 using namespace cv;
 
 
-float cvUtil::computeAngle(cv::Point pt0, cv::Point pt1)
+float cvUtil::singleLineAngle(cv::Point pt0, cv::Point pt1)
 {
 	int dx = pt1.x - pt0.x;
 	int dy = pt1.y - pt0.y;

@@ -30,7 +30,7 @@ public:
 	{
 	}
 	
-	float computeAngle(cv::Point pt0, cv::Point pt1);
+	float singleLineAngle(cv::Point pt0, cv::Point pt1);
 
 	Scalar getFilledColor();
 
