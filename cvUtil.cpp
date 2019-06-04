@@ -102,7 +102,7 @@ void cvUtil::frameText(cv::Mat&img, vector<string>&text, const bool&filled, cons
 			origin.y = text_size.height+10;
 	    origin.y += y;
 		y += origin.y;
-		cout<<"y:"<<y<<endl;
+		//cout<<"y:"<<y<<endl;
  
 		Rect select;//声明矩形
 		select.x = origin.x;//左上角坐标
@@ -180,8 +180,8 @@ void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const int&ix, const i
 		int text_thickness =2;
 		cv::Size text_size = ft2->getTextSize(e, fontHeight, text_thickness, &baseline);
 		
-		cout<<"cv::Size height:"<<text_size.height<<endl;
-		cout<<"cv::Size width:"<<text_size.width<<endl;
+		//cout<<"cv::Size height:"<<text_size.height<<endl;
+		//cout<<"cv::Size width:"<<text_size.width<<endl;
 								 
 		//将文本框居中绘制
 		if( y == 0)
@@ -192,7 +192,7 @@ void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const int&ix, const i
 		else
 			origin.y = y;
 		y += text_size.height+10;
-		cout<<"y:"<<y<<endl;
+		//cout<<"y:"<<y<<endl;
  
 		Rect select;//声明矩形
 		select.x = origin.x;//左上角坐标
@@ -223,8 +223,8 @@ void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const int&ix, const i
 		*/
 		cv::Point textOrigin = origin;
 		textOrigin.y = select.y;
-		cout<<"origin.y:"<<origin.y<<endl;
-		cout<<"textOrigin.y:"<<textOrigin.y<<endl<<endl;
+		//cout<<"origin.y:"<<origin.y<<endl;
+		//cout<<"textOrigin.y:"<<textOrigin.y<<endl<<endl;
 		//ft2->putText(img, e, textOrigin, fontHeight, cv::Scalar(0, 0, 255), text_thickness, 8, 0);
 		ft2->putText(img, e, textOrigin, fontHeight, cv::Scalar(255, 255, 255), text_thickness, 8, 0);
 	}
