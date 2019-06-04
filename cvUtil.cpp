@@ -47,9 +47,9 @@ Scalar cvUtil::getFilledColor()
 	r = Scalar(229, 61, 25);//r
 	vecScalar.push_back(r);
 	
-	g = Scalar(25, 193, 229);//g
-	vecScalar.push_back(g);
-	
+	r = Scalar(236, 49, 194);//r
+	vecScalar.push_back(r);
+
 	r = Scalar(49, 129, 236);//r
 	vecScalar.push_back(r);
 	
@@ -67,10 +67,10 @@ Scalar cvUtil::getFilledColor()
 	vecScalar.push_back(b);
 
 
+	g = Scalar(25, 193, 229);//g
+	vecScalar.push_back(g);
 	
-	r = Scalar(236, 49, 194);//r
-	vecScalar.push_back(r);
-
+	
 	return vecScalar[i++%vecScalar.size()];
 }
 
