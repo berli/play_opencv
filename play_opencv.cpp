@@ -48,11 +48,22 @@ int main(int argc,char *argv[])
 
 	util.frameTextCh(img, vecText);
     
+	for(int i = 200; i < 500; )
+	{
+    //在原图画一条直线
+	cv::Point start = cv::Point(i, 300); //直线起点
+	cv::Point end = cv::Point(300,400);   //直线终点
+	cv::line(img, start, end, cv::Scalar(0, 0, 255));
+	cout<<"x:"<<i<<" angle:"<<util.singleLineAngle(start, end)<<endl;
+
+	i+= 10;
+	}
+
 	cv::namedWindow("test");
     cv::imshow("test",img);
     cv::waitKey(0);
 
-		cv::Mat src(768, 1024,CV_8UC3);
+	cv::Mat src(768, 1024,CV_8UC3);
 	src.setTo(0);
 
 	std::vector<cv::Point > contour;
@@ -63,18 +74,17 @@ int main(int argc,char *argv[])
 	contour.push_back(cv::Point(671, 263));
 	//contour.push_back(cv::Point(1024, 643));
 
-	cout<<util.computeAngle(cv::Point(100,100), cv::Point(0, 0))<<endl;
 
 	std::vector<std::vector<cv::Point >> contours;
 	contours.push_back(contour);
 
 	//填充区域之前，首先采用polylines()函数，可以使填充的区域边缘更光滑
-	cv::polylines(src, contours, true, cv::Scalar(255, 255, 255), 2, cv::LINE_AA);//第2个参数可以采用contour或者contours，均可
-	cv::fillPoly(src, contours, cv::Scalar(255, 255, 255));//fillPoly函数的第二个参数是二维数组！！
+	//cv::polylines(src, contours, true, cv::Scalar(255, 255, 255), 2, cv::LINE_AA);//第2个参数可以采用contour或者contours，均可
+	//cv::fillPoly(src, contours, cv::Scalar(255, 255, 255));//fillPoly函数的第二个参数是二维数组！！
 
-	cv::imshow("原图", src);
-	cv::waitKey(0);
-    
+	//cv::imshow("原图", src);
+	//cv::waitKey(0);
+
 	return 0;
 }
 

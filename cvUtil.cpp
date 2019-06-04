@@ -31,7 +31,8 @@ float cvUtil::singleLineAngle(cv::Point pt0, cv::Point pt1)
 			
 	}
 	
-	float a =  atanf((float)dy / dx);
+	//float a =  atanf((float)dy / dx);
+	float a =  atan2f((float)dy, dx);
 	float angle = a*180/PI ;
 	return angle;
 }
