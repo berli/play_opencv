@@ -9,6 +9,39 @@
 using namespace std;
 using namespace cv;
 
+cvUtil::cvUtil()
+{
+	color_index = 0;
+    Scalar r,g,b;
+    
+    r = Scalar(229, 61, 25);//r
+    cVecScalar.push_back(r);
+    
+    r = Scalar(236, 49, 194);//r
+    cVecScalar.push_back(r);
+
+    b = Scalar(91, 229, 25);//b
+    cVecScalar.push_back(b);
+
+    r = Scalar(49, 129, 236);//r
+    cVecScalar.push_back(r);
+    
+    r = Scalar(163, 25, 229);//r
+    cVecScalar.push_back(r);
+    
+    r = Scalar(130, 191, 255);//seeTaFace color
+    cVecScalar.push_back(r);
+
+    r = Scalar(129, 129, 125);//蒙板
+    cVecScalar.push_back(r);
+
+    g = Scalar(25, 193, 229);//g
+    cVecScalar.push_back(g);
+}
+
+cvUtil::~cvUtil()
+{
+}
 
 float cvUtil::singleLineAngle(cv::Point pt0, cv::Point pt1)
 {
@@ -37,41 +70,16 @@ float cvUtil::singleLineAngle(cv::Point pt0, cv::Point pt1)
 	return angle;
 }
 
+void cvUtil::InitColor()
+{
+	color_index =0;
+}
+
 Scalar cvUtil::getFilledColor()
 {
-	static size_t i = 0;
-
-	vector<Scalar> vecScalar;
-	Scalar r,g,b;
-	
-	r = Scalar(229, 61, 25);//r
-	vecScalar.push_back(r);
-	
-	r = Scalar(236, 49, 194);//r
-	vecScalar.push_back(r);
-
-	r = Scalar(49, 129, 236);//r
-	vecScalar.push_back(r);
-	
-	r = Scalar(163, 25, 229);//r
-	vecScalar.push_back(r);
-	
-	r = Scalar(130, 191, 255);//seeTaFace color
-	vecScalar.push_back(r);
-
-	r = Scalar(129, 129, 125);//蒙板
-	vecScalar.push_back(r);
-
-	
-	b = Scalar(91, 229, 25);//b
-	vecScalar.push_back(b);
-
-
-	g = Scalar(25, 193, 229);//g
-	vecScalar.push_back(g);
-	
-	
-	return vecScalar[i++%vecScalar.size()];
+	color_index %= cVecScalar.size();
+	cout<<"cVecScalar.size:"<<cVecScalar.size()<<" color_index:"<<color_index<<endl;
+	return cVecScalar[color_index++];
 }
 
 void cvUtil::frameText(cv::Mat&img, vector<string>&text, const bool&filled, const bool&transparent, const float&alpha)
@@ -175,6 +183,7 @@ void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const int&ix, const i
 			max_width = text_size.width;
 	}
 
+	InitColor();
 	for(auto&e:text)
 	{
 		int text_thickness =2;
@@ -276,5 +285,19 @@ void cvUtil::frameText(cv::Mat&img,const string&text)
 	select.height = text_size.height+12;
 	 
 	rectangle(img,select,Scalar(0,0,255),3,8,0);//用矩形画矩形窗
+}
+
+void cvUtil::putCircle(cv::Mat&img,const Point&center, const int& radius, const Scalar&color, const int&thickness, const bool&transparent, const float&alpha)
+{
+    cv::circle(img, center, radius, color, thickness);
+
+	if( transparent)
+	{
+		Mat dst;
+		img.copyTo(dst);
+		float beta = ( 1.0 - alpha );
+		cv::addWeighted(dst, alpha, img, beta, 0 ,dst);
+		img = dst;
+	}
 }
 

@@ -22,25 +22,26 @@ using namespace cv;
 class cvUtil
 {
 public:
-	cvUtil()
-	{
-	}
+	cvUtil();
 	
-	~cvUtil()
-	{
-	}
+	~cvUtil();
 	
 	float singleLineAngle(cv::Point pt0, cv::Point pt1);
 
+	void InitColor();
 	Scalar getFilledColor();
 
 	void frameText(cv::Mat&img, vector<string>&text, const bool&filled = true, const bool&transparent = true, const float&alpha = 0.3);
 
 	void frameTextCh(cv::Mat&img, vector<string>&text, const int&ix=0, const int&iy =0, const bool&filled = true, const bool&transparent = true, const float&alpha = 0.3);
 
-
 	void frameText(cv::Mat&img,const string&text);
 
+	void putCircle(cv::Mat&img,const Point&center, const int& radius, const Scalar&color= cv::Scalar(0,0,255), const int&thickness=FILLED, const bool&transparent=false, const float&alpha = 0.3);
+
+protected:
+	volatile int color_index;
+	vector<Scalar> cVecScalar;
 };
 
 

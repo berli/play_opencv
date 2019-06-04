@@ -45,6 +45,11 @@ int main(int argc,char *argv[])
 
 	text = "中文字示 ";
 	vecText.push_back(text);
+	vecText.push_back(text);
+	vecText.push_back(text);
+	vecText.push_back(text);
+	vecText.push_back(text);
+	vecText.push_back(text);
 
 	util.frameTextCh(img, vecText);
     
@@ -58,6 +63,8 @@ int main(int argc,char *argv[])
 
 	i+= 10;
 	}
+
+	util.putCircle(img, Point(350,350), 10);
 
 	cv::namedWindow("test");
     cv::imshow("test",img);
