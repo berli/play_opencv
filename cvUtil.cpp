@@ -14,7 +14,7 @@ cvUtil::cvUtil()
 	color_index = 0;
     Scalar r,g,b;
     
-    r = Scalar(229, 61, 25);//r
+	r = Scalar(229, 61, 25);//r
     cVecScalar.push_back(r);
     
     r = Scalar(236, 49, 194);//r
