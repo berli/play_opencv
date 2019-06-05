@@ -63,8 +63,15 @@ int main(int argc,char *argv[])
 
 	i+= 10;
 	}
+	Point rhip(333.184845,271.260010);
+	//Point rknee(466.571777,308.241119); 
+	Point rknee(466.571777,271.260010); 
+	cout<<" angle:"<<util.singleLineAngle(rhip, rknee)<<endl;
 
 	util.putCircle(img, Point(350,350), 10);
+
+	cv::Scalar color(0,0,255);
+	util.drawArrow(img, rhip, rknee,color);
 
 	cv::namedWindow("test");
     cv::imshow("test",img);

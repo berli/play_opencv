@@ -151,7 +151,7 @@ void cvUtil::frameText(cv::Mat&img, vector<string>&text, const bool&filled, cons
 	}
 }
 
-void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const int&ix, const int&iy, const bool&filled, const bool&transparent, const float&alpha)
+void cvUtil::frameTextCh(cv::Mat&img, vector<string>&text, const Point&loc, const bool&filled, const bool&transparent, const float&alpha)
 {
 	//设置绘制文本的相关参数
 	//std::string text = "Hello World!";
@@ -299,5 +299,26 @@ void cvUtil::putCircle(cv::Mat&img,const Point&center, const int& radius, const 
 		cv::addWeighted(dst, alpha, img, beta, 0 ,dst);
 		img = dst;
 	}
+}
+
+void cvUtil::drawArrow(cv::Mat& img, cv::Point pStart, cv::Point pEnd, cv::Scalar&color, int len, int alpha, int thickness, int lineType)
+{
+		Point arrow;
+			
+		//计算 θ 角（最简单的一种情况在下面图示中已经展示，关键在于 atan2 函数，详情见下面）   
+		double angle = atan2((double)(pStart.y - pEnd.y), (double)(pStart.x - pEnd.x));
+		line(img, pStart, pEnd, color, thickness, lineType);
+				
+		//计算箭角边的另一端的端点位置（上面的还是下面的要看箭头的指向，也就是pStart和pEnd的位置） 
+	    arrow.x = pEnd.x + len * cos(angle + PI * alpha / 180);
+		arrow.y = pEnd.y + len * sin(angle + PI * alpha / 180);
+				
+		line(img, pEnd, arrow, color, thickness, lineType);
+
+		arrow.x = pEnd.x + len * cos(angle - PI * alpha / 180);
+				
+		arrow.y = pEnd.y + len * sin(angle - PI * alpha / 180);
+				
+		line(img, pEnd, arrow, color, thickness, lineType);
 }
 
