@@ -28,6 +28,8 @@ public:
 	
 	float singleLineAngle(cv::Point pt0, cv::Point pt1);
 
+	float getAngelOfTwoVector(Point &pt1, Point &pt2, Point &c);
+
 	void InitColor();
 	Scalar getFilledColor();
 

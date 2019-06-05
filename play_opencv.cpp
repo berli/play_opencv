@@ -73,10 +73,18 @@ int main(int argc,char *argv[])
 	cv::Scalar color(0,0,255);
 	util.drawArrow(img, rhip, rknee,color);
 
+	Point p1(100, 100);
+	Point p2(400, 500);
+	Point c(200, 300);
+	util.drawArrow(img, c,p1,color);
+	util.drawArrow(img, c,p2,color);
+	cout<<"two line angle:"<<util.getAngelOfTwoVector(p1, p2, c)<<endl;
+
 	cv::namedWindow("test");
     cv::imshow("test",img);
     cv::waitKey(0);
 
+	////////////////////////////
 	cv::Mat src(768, 1024,CV_8UC3);
 	src.setTo(0);
 
