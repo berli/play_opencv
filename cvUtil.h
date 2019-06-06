@@ -43,6 +43,12 @@ public:
 
 	void drawArrow(cv::Mat& img, cv::Point pStart, cv::Point pEnd, cv::Scalar&color, int len=20, int alpha=15, int thickness = 1, int lineType=4);
 
+	int detectLines(Mat&image, vector<Point>&vecLines);
+
+private:
+
+	void drawDetectLines(Mat& image,const vector<Vec4i>& lines,const Scalar & color);
+
 protected:
 	volatile int color_index;
 	vector<Scalar> cVecScalar;

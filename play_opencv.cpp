@@ -6,7 +6,23 @@ using namespace std;
 int main(int argc,char *argv[])
 {
     //cv::Mat img = cv::Mat(240,320,CV_8UC3,cv::Scalar(0,0,255));
-    cv::Mat img = imread("201704051756.jpg");
+	string file ;
+	if( argc == 2 )
+		file = argv[1];
+	else
+		file = "201704051756.jpg";
+    cv::Mat img = imread(file);
+
+	//hough line
+	cvUtil util;
+	vector<Point>vecLines;
+	util.detectLines(img, vecLines);
+	cv::namedWindow("test");
+    cv::imshow("test",img);
+    cv::waitKey(0);
+	//end hough line
+
+	return 0;
 
 	int width = img.cols;
 	int height = img.rows;
@@ -24,8 +40,6 @@ int main(int argc,char *argv[])
 	}
     cv::circle(img,cv::Point(100,100),50,cv::Scalar(0,255,0),2);
 	
-	cvUtil util;
-
 	string text = "你好Hello World";
 	vector<string>vecText;
 	vecText.push_back(text);

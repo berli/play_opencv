@@ -336,3 +336,32 @@ void cvUtil::drawArrow(cv::Mat& img, cv::Point pStart, cv::Point pEnd, cv::Scala
 		line(img, pEnd, arrow, color, thickness, lineType);
 }
 
+void cvUtil::drawDetectLines(Mat& image,const vector<Vec4i>& lines,const Scalar & color)
+{     
+	// 将检测到的直线在图上画出来    
+	vector<Vec4i>::const_iterator it=lines.begin();    
+	while(it!=lines.end())    
+	{        
+		Point pt1((*it)[0],(*it)[1]);       
+		Point pt2((*it)[2],(*it)[3]);        
+		line(image,pt1,pt2,color,2); //线条宽度设置为2    
+		++it;   
+	}
+} 
+
+int cvUtil::detectLines(Mat&image, vector<Point>&vecLines)
+{
+	//Mat src_img=imread("..\\image_norm\\71253.jpg");
+	Mat I;    
+	cvtColor(image,I,COLOR_BGR2GRAY);                            
+	Mat contours;    
+	Canny(I,contours,125,350);   
+	threshold(contours,contours,128,255,THRESH_BINARY);    
+	vector<Vec4i> lines;       
+	HoughLinesP(contours,lines,1,CV_PI/180,80,50,10);   
+	Scalar color(0,255,0);
+	drawDetectLines(image,lines, color);     
+	return 0;
+}
+
+
