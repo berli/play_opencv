@@ -1,0 +1,5 @@
+project( DisplayImage )
+set(CMAKE_CXX_STANDARD 11)
+find_package( OpenCV REQUIRED )
+add_executable( DisplayImage lsd_lines.cpp )
+target_link_libraries( DisplayImage ${OpenCV_LIBS} )
