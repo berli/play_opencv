@@ -358,7 +358,16 @@ int cvUtil::detectLines(Mat&image, vector<Point>&vecLines)
 	Canny(I,contours,125,350);   
 	threshold(contours,contours,128,255,THRESH_BINARY);    
 	vector<Vec4i> lines;       
-	HoughLinesP(contours,lines,1,CV_PI/180,80,50,10);   
+
+	//void HoughLinesP(InputArray image, OutputArray lines, double rho, double theta, int threshold,double minLineLength=0, double maxLineGap=0 )
+	//image : 边缘检测的输出图像.它应该是个灰度图(但事实上是个二值化图) *
+	//lines : 储存着检测到的直线的参数对  的容器，也就是线段两个端点的坐标
+	//rho  : 参数极径  以像素值为单位的分辨率.我们使用 1 像素.
+	//theta : 参数极角  以弧度为单位的分辨率.我们使用 1度 (即CV_PI / 180)
+	//threshold : 要”检测” 一条直线所需最少的的曲线交点 
+	//minLinLength : 能组成一条直线的最少点的数量.点数量不足的直线将被抛弃.线段的最小长度
+	//maxLineGap : 线段上最近两点之间的阈值				
+	HoughLinesP(contours,lines,1,CV_PI/360, 20, 40, 15);   
 	Scalar color(0,255,0);
 	drawDetectLines(image,lines, color);     
 	return 0;
