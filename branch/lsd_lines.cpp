@@ -5,8 +5,8 @@
     > Created Time: Fri Jun  7 18:58:21 2019
  ************************************************************************/
 
-#include <opencv2/ximgproc.hpp> //wd 20190508
-#include <opencv2/line_descriptor/descriptor.hpp> //wd 20190508
+//#include <opencv2/ximgproc.hpp> //wd 20190508
+//#include <opencv2/line_descriptor/descriptor.hpp> //wd 20190508
 #include <opencv2/opencv.hpp>
 #include <iostream>
 
@@ -15,6 +15,18 @@ using namespace std;
 
 int main() 
 {
+	VideoCapture cap("rtsp://admin:hk654123@192.168.2.211:554/h264/ch1/main/av_stream");
+	while(true)
+	{
+		Mat frame;
+		cap>>frame;
+		imshow("hai kang", frame);
+		waitKey(10);
+
+	}
+
+	return 0;
+#if 0
    //string path = "line.jpg";
    string path = "../line.png";
    Mat image = imread(path, IMREAD_GRAYSCALE);
@@ -46,6 +58,7 @@ int main()
    imshow("【仅仅是直线】", only_lines);
 
    waitKey(0);
+#endif
    return 0;
 }
 
